@@ -101,8 +101,6 @@ export default {
 }
 .body2 {
   background-image: url('@/assets/my.jpg');
-  border: 5px solid red;
-  box-sizing: border-box;
   margin: 0;
   padding: 100%;
   position: fixed;

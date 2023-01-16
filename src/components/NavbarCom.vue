@@ -1,8 +1,8 @@
 <template>
   <!-- component -->
   <nav class="body" id="container">
-    <div class="">
-      <a href="/"><img id="logo" src="@/assets/logo2.png" alt="a" /></a>
+    <div class="profile">
+      <a href="/"><img id="logo" src="@/assets/s.jpg" alt="a" /></a>
       <div class="">
         <!-- <span class="font-semibold text-xl tracking-tight">ANIME-W</span> -->
         <!-- <img class="h-20 w-50" src="../assets/ANIME-W.png" alt="" /> -->
@@ -81,10 +81,12 @@
 
         <button v-if="GStore.currentUser" @click="logout" class="logout">
           Logout
+          <a href="https://www.w3schools.com/"></a>
         </button>
       </div>
     </div>
   </nav>
+  <div class="body1"></div>
 </template>
 <script>
 import AuthService from '@/service/AuthService.js'
@@ -142,19 +144,31 @@ export default {
   left: 40%;
   margin-left: -250px;
 } */
+body,
+html {
+  height: 100%;
+}
 * {
   margin: 0;
   padding: 0;
 }
+
 .body {
   background-color: #0088ff;
   font-family: 'Raleway', sans-serif;
+  position: fixed;
+}
+.body1 {
+  background-color: #0088ff;
+  font-family: 'Raleway', sans-serif;
+  position: fixed;
 }
 .ribbon {
   position: absolute;
-  background-color: red;
-  color: white;
-  top: 40px;
+  margin: 0px 0px 0px 17px;
+  background-color: rgb(194, 211, 132);
+  color: rgb(41, 36, 36);
+  top: 65px;
   width: 160px;
   text-align: center;
   margin-right: 0.5rem;
@@ -162,10 +176,10 @@ export default {
 }
 .ribbon2 {
   position: absolute;
-  margin: 0px 0px 0px -170px;
-  background-color: red;
-  color: white;
-  top: 40px;
+  margin: 0px 0px 0px -175px;
+  background-color: rgb(57, 208, 228);
+  color: rgb(8, 4, 4);
+  top: 65px;
   width: 160px;
   text-align: center;
   margin-right: 0.5rem;
@@ -173,9 +187,9 @@ export default {
 }
 .ribbon:hover {
   position: absolute;
-  background-color: rgb(195, 255, 0);
+  background-color: rgb(93, 156, 180);
   color: rgb(255, 0, 0);
-  top: 40px;
+  top: 65px;
   width: 160px;
   text-align: center;
 }
@@ -184,7 +198,7 @@ export default {
   margin: 0px 0px 0px -170px;
   background-color: rgb(195, 255, 0);
   color: rgb(255, 0, 0);
-  top: 40px;
+  top: 65px;
   width: 160px;
   text-align: center;
 }
@@ -202,7 +216,7 @@ export default {
 .logout {
   position: absolute;
   margin: 0px 0px 0px 250px;
-  background-color: #ff0000;
+  background-color: #803333;
   color: white;
   top: 40px;
   width: 95px;
@@ -213,7 +227,7 @@ export default {
 .logout:hover {
   position: absolute;
   margin: 0px 0px 0px 250px;
-  background-color: rgb(195, 255, 0);
+  background-color: rgb(80, 82, 76);
   color: rgb(255, 0, 0);
   top: 40px;
   width: 95px;
@@ -224,7 +238,7 @@ export default {
 .search {
   position: absolute;
   margin: 0px 0px 0px -450px;
-  background-color: rgb(195, 255, 0);
+  background-color: rgb(161, 219, 221);
   color: rgb(255, 0, 0);
   top: 40px;
   width: 200px;
@@ -242,7 +256,7 @@ export default {
   position: relative;
   width: 80%;
   margin: 5% auto;
-  background-color: black;
+  background-color: rgb(212, 188, 188);
   box-shadow: -2px -2px 5px white, 2px -2px 5px white;
 }
 #container > nav {
@@ -303,7 +317,7 @@ a {
   position: absolute;
   padding: 0 10px;
 
-  background-color: black;
+  background-color: rgb(216, 172, 172);
   display: none;
   background-color: aliceblue;
   min-width: 100px;
@@ -333,6 +347,6 @@ a {
 }
 #container > nav > ul > li > div > ul > li > a {
   padding: 5px;
-  color: black;
+  color: rgb(201, 184, 184);
 }
 </style>
