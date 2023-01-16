@@ -1,16 +1,14 @@
 <template>
   <!-- component -->
-  <nav class="body" id="">
+  <nav class="body" id="container">
     <div class="">
-      <a href="@/views/HomeView"
-        ><img id="logo" src="@/assets/logo2.png" alt="a"
-      /></a>
+      <a href="/"><img id="logo" src="@/assets/logo2.png" alt="a" /></a>
       <div class="">
         <!-- <span class="font-semibold text-xl tracking-tight">ANIME-W</span> -->
         <!-- <img class="h-20 w-50" src="../assets/ANIME-W.png" alt="" /> -->
       </div>
       <div class="">
-        <button id="nav" class="">
+        <button id="" class="">
           <svg
             class="fill-current h-3 w-3"
             viewBox="0 0 20 20"
@@ -25,17 +23,11 @@
 
     <div class="">
       <div class="">
-        <button
-          @click="$router.push({ path: '/' })"
-          class="hover:text-white px-4 py-2 rounded hover:bg-blue-700 mr-2"
-        >
+        <button @click="$router.push({ path: '/' })" class="ribbon2">
           Anime
         </button>
 
-        <button
-          @click="$router.push({ path: '/about' })"
-          class="hover:text-white px-4 py-2 rounded hover:bg-blue-700 mrs-2"
-        >
+        <button @click="$router.push({ path: '/about' })" class="ribbon">
           Bookmark
         </button>
       </div>
@@ -48,8 +40,13 @@
       <!-- This is an example component -->
       <div class="">
         <Form @submit="check_search" :validation-schema="schema">
-          <Field class="" type="input" name="input" placeholder="Search" />
-          <button type="submit" class="">
+          <Field
+            class="search"
+            type="input"
+            name="input"
+            placeholder="Search"
+          />
+          <button type="submit" class="jj">
             <svg
               class="text-gray-600 h-4 w-4 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -71,9 +68,7 @@
         </Form>
       </div>
       <div class="">
-        <p
-          class="block text-md px-4 ml-2 py-2 rounded text-blue-700 font-bold mt-4 lg:mt-0"
-        >
+        <p class="user">
           {{ GStore.currentUser.username }}
         </p>
         <button
@@ -84,11 +79,7 @@
           Login
         </button>
 
-        <button
-          v-if="GStore.currentUser"
-          @click="logout"
-          class="block border-2 text-md px-4 ml-2 py-2 rounded text-black-700 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0 r"
-        >
+        <button v-if="GStore.currentUser" @click="logout" class="logout">
           Logout
         </button>
       </div>
@@ -146,11 +137,11 @@ export default {
 }
 </script>
 <style scoped>
-.r {
+/* .r {
   top: 20%;
   left: 40%;
   margin-left: -250px;
-}
+} */
 * {
   margin: 0;
   padding: 0;
@@ -159,16 +150,94 @@ export default {
   background-color: #0088ff;
   font-family: 'Raleway', sans-serif;
 }
-#ribbon {
+.ribbon {
   position: absolute;
   background-color: red;
   color: white;
   top: 40px;
-  left: -30px;
   width: 160px;
-  transform: rotate(-45deg);
+  text-align: center;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+}
+.ribbon2 {
+  position: absolute;
+  margin: 0px 0px 0px -170px;
+  background-color: red;
+  color: white;
+  top: 40px;
+  width: 160px;
+  text-align: center;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+}
+.ribbon:hover {
+  position: absolute;
+  background-color: rgb(195, 255, 0);
+  color: rgb(255, 0, 0);
+  top: 40px;
+  width: 160px;
   text-align: center;
 }
+.ribbon2:hover {
+  position: absolute;
+  margin: 0px 0px 0px -170px;
+  background-color: rgb(195, 255, 0);
+  color: rgb(255, 0, 0);
+  top: 40px;
+  width: 160px;
+  text-align: center;
+}
+.user {
+  position: absolute;
+  margin: 0px 0px 0px 950px;
+  background-color: #0088ff;
+  color: white;
+  top: 40px;
+  width: 160px;
+  text-align: center;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+}
+.logout {
+  position: absolute;
+  margin: 0px 0px 0px 250px;
+  background-color: #ff0000;
+  color: white;
+  top: 40px;
+  width: 95px;
+  text-align: center;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+}
+.logout:hover {
+  position: absolute;
+  margin: 0px 0px 0px 250px;
+  background-color: rgb(195, 255, 0);
+  color: rgb(255, 0, 0);
+  top: 40px;
+  width: 95px;
+  text-align: center;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+}
+.search {
+  position: absolute;
+  margin: 0px 0px 0px -450px;
+  background-color: rgb(195, 255, 0);
+  color: rgb(255, 0, 0);
+  top: 40px;
+  width: 200px;
+  text-align: center;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+}
+.jj {
+  position: absolute;
+  margin: 0px 0px 0px -250px;
+  top: 40px;
+}
+
 #container {
   position: relative;
   width: 80%;
@@ -183,14 +252,14 @@ export default {
 }
 #logo {
   margin: 0px 1500px 0px 0px;
-  line-height: 60px;
+  line-height: 20px;
   padding: 0 0px;
-  color: white;
-  width: 150px;
+  background-color: white;
+  width: 100px;
 }
 #container > nav > ul {
   margin: 0;
-  paddding: 0;
+  padding: 0;
   list-style-type: none;
   display: flex;
   position: absolute;

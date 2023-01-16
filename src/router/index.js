@@ -38,10 +38,10 @@ const routes = [
     component: AnimeDetailView,
     beforeEnter: (to) => {
       console.log(to.params.id)
-      GStore.animeDetail = GStore.animeList.info.filter(
+      GStore.animeDetails = GStore.animeList.info.filter(
         (itemInArray) => itemInArray.mal_id == to.params.id
       )
-      console.log(GStore.animeDetail)
+      console.log(GStore.animeDetails)
     }
   },
   {
