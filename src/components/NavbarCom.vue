@@ -90,7 +90,7 @@
 </template>
 <script>
 import AuthService from '@/service/AuthService.js'
-import AnimeService from '@/service/AnimeService.js'
+import AnimeService from '@/service/Anime/AnimeService.js'
 import { Form, Field } from 'vee-validate'
 import * as yup from 'yup'
 import dropdown from 'vue-dropdowns'
