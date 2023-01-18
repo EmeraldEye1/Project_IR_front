@@ -1,7 +1,8 @@
-import { reactive } from 'vue'
+import { reactive } from 'vue';
 export default reactive({
-  currentUser: JSON.parse(localStorage.getItem('user')) || null,
-  animeList: [],
-  animeDetail: null,
-  bookmarkList: null
-})
+  flashMessage: '',
+  anime: null,
+  details: null,
+  data: null,
+  currentUser: JSON.parse(localStorage.getItem('user'))
+});

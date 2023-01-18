@@ -1,11 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/user/LoginView.vue'
-import AnimeListView from '../views/Anime/AnimeListView.vue'
-import AnimeDetailView from '../views/Anime/AnimeDetail.vue'
-import GStore from '@/store'
-import BookmarkView from '../views/user/BookmarkView.vue'
-import UserService from '@/service/UserService'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import AboutView from '../views/AboutView.vue';
+import LoginForm from '../views/user/LoginForm.vue';
+import DetailView from '../views/anime/DetailView.vue';
+import GStore from '@/store';
+
 const routes = [
   {
     path: '/',
@@ -13,57 +12,33 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/login',
-    name: 'login',
-    component: LoginView
-  },
-  {
-    path: '/animeList',
-    name: 'animeList',
-    component: AnimeListView
-  },
-  {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: AboutView
   },
   {
-    path: '/animeDetails/<id>',
-    name: 'animeDetail',
+    path: '/login',
+    name: 'login',
+    component: LoginForm
+  },
+  {
+    path: '/details/:id',
+    name: 'DetailView',
     props: true,
-    component: AnimeDetailView,
+    component: DetailView,
     beforeEnter: (to) => {
-      console.log(to.params.id)
-      GStore.animeDetails = GStore.animeList.info.filter(
+      console.log(to.params.id);
+      GStore.details = GStore.anime.filter(
         (itemInArray) => itemInArray.mal_id == to.params.id
-      )
-      console.log(GStore.animeDetails)
-    }
-  },
-  {
-    path: '/bookmark',
-    name: 'bookmarkDetail',
-    props: true,
-    component: BookmarkView,
-    beforeEnter: () => {
-      console.log(GStore.currentUser.id)
-      return UserService.get_bookmark(GStore.currentUser.id).then(
-        (response) => {
-          GStore.bookmarkList = response.data
-          console.log(GStore.bookmarkList)
-        }
-      )
+      );
+      console.log(GStore.details);
     }
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
 
-export default router
+export default router;

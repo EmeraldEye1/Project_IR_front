@@ -1,276 +1,266 @@
 <template>
-  <!-- component -->
-  <nav class="body" id="container">
-    <div class="profile">
-      <a href="/"><img id="logo" src="@/assets/s.jpg" alt="a" /></a>
-      <div class="">
-        <!-- <span class="font-semibold text-xl tracking-tight">ANIME-W</span> -->
-        <!-- <img class="h-20 w-50" src="../assets/ANIME-W.png" alt="" /> -->
-      </div>
-      <div class="">
-        <button id="" class="">
-          <svg
-            class="fill-current h-3 w-3"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="">
-      <div class="">
-        <button @click="$router.push({ path: '/' })" class="ribbon2">
-          Anime
-        </button>
-
-        <button @click="$router.push({ path: '/about' })" class="ribbon">
-          Bookmark
-        </button>
-      </div>
-      <dropdown
-        v-model="select_search"
-        :options="choice"
-        :selected="choose"
-        v-on:updateOption="methodToRunOnSelect"
-      ></dropdown>
-      <!-- This is an example component -->
-      <div class="">
-        <Form @submit="check_search" :validation-schema="schema">
-          <Field
-            class="search"
-            type="input"
-            name="input"
-            placeholder="Search"
-          />
-          <button type="submit" class="jj">
-            <svg
-              class="text-gray-600 h-4 w-4 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              version="1.1"
-              id="Capa_1"
-              x="0px"
-              y="0px"
-              viewBox="0 0 56.966 56.966"
-              style="enable-background: new 0 0 56.966 56.966"
-              xml:space="preserve"
-              width="12px"
-              height="12px"
-            >
-              <path
-                d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z"
-              />
-            </svg>
-          </button>
-        </Form>
-      </div>
-      <div class="">
-        <p class="user">
-          {{ GStore.currentUser.username }}
-        </p>
-        <button
-          v-if="!GStore.currentUser"
-          @click="$router.push('login')"
-          class="r"
+  <div class="bg">
+    <a href="/"><img class="logo" src="@/assets/s.jpg" alt="a" /></a>
+    <div class="menu">
+      <div class="navbar">
+        <router-link class="ribbon" :to="{ name: 'home' }">Home</router-link>
+        <router-link class="ribbon2" :to="{ name: 'about' }"
+          >Bookmark</router-link
         >
-          Login
-        </button>
+      </div>
 
-        <button v-if="GStore.currentUser" @click="logout" class="logout">
-          Logout
-          <a href="https://www.w3schools.com/"></a>
-        </button>
+      <Form @submit="search" :validation-schema="schema">
+        <Field name="search" type="text" class="form-control searchbar" />
+        <div class="form-group">
+          <button class="btn btn-primary btn-block search">
+            <span>Search</span>
+          </button>
+        </div>
+      </Form>
+      <div id="nav">
+        <nav class="navbar navbar-expand">
+          <ul v-if="!GStore.currentUser" class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <router-link to="/login" class="nav-link logout2">
+                <font-awesome-icon icon="sign-in-alt" /> Login
+              </router-link>
+            </li>
+          </ul>
+          <ul v-if="GStore.currentUser" class="navbar-nav ml-auto logout">
+            <li class="nav-item">
+              <router-link to="/profile" class="nav-link">
+                <font-awesome-icon icon="user" />
+                {{ GStore.currentUser.name }}
+              </router-link>
+            </li>
+            <p class="user">
+              {{ GStore.currentUser.username }}
+            </p>
+            <li class="nav-item">
+              <a class="nav-link" @click="logout">
+                <font-awesome-icon icon="sign-out-alt" /> | Logout
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
-  </nav>
-  <div class="body1"></div>
+  </div>
 </template>
 <script>
-import AuthService from '@/service/AuthService.js'
-import AnimeService from '@/service/Anime/AnimeService.js'
-import { Form, Field } from 'vee-validate'
-import * as yup from 'yup'
-import dropdown from 'vue-dropdowns'
+import { Form, Field } from 'vee-validate';
+import AuthService from '../service/AuthService.js';
+import AnimeService from '../service/anime/AnimeService.js';
+
 export default {
   inject: ['GStore'],
-  name: 'NavBar',
+  name: 'NavbarCom',
   components: {
     Form,
-    Field,
-    dropdown
-  },
-  data() {
-    const schema = yup.object().shape({
-      input: yup.string()
-    })
-    return {
-      schema,
-      select_search: null,
-      choice: [{ name: 'Title' }, { name: 'Description' }],
-      choose: {
-        name: 'Selected search'
-      }
-    }
+    Field
   },
   methods: {
     logout() {
-      AuthService.logout()
-      this.$router.go()
+      AuthService.logout();
+      this.$router.go();
     },
-    methodToRunOnSelect(payload) {
-      this.choose = payload
-    },
-    check_search(input) {
-      if (
-        this.choose.name == 'Selected search' ||
-        this.choose.name == 'Title'
-      ) {
-        AnimeService.getAnimeList(input)
-        setTimeout(() => this.$router.push('animeList'), 200)
-      } else {
-        AnimeService.getAnimeList_description(input)
-        setTimeout(() => this.$router.push('animeList'), 200)
-      }
+    search(query) {
+      console.log(query);
+      AnimeService.searchAnime(query);
+      // setTimeout(() => this.$route.push('animeList'), 200)
     }
   }
-}
+};
 </script>
 <style scoped>
+/* #nav {
+  position: cover;
+  top: 1px;
+  height: 60px;
+  width: 1460px;
+  background: rgba(146, 246, 149, 0.925);
+  margin-right: 0.5rem;
+  border-radius: 8px;
+} */
+.menu {
+  display: flex;
+  flex-direction: row;
+}
+MDBNavbar {
+  display: flex;
+  flex-direction: row;
+}
 /* .r {
   top: 20%;
   left: 40%;
   margin-left: -250px;
 } */
-body,
-html {
-  height: 100%;
-}
 * {
   margin: 0;
   padding: 0;
 }
-
-.body {
-  background-color: #0088ff;
-  font-family: 'Raleway', sans-serif;
+.logo {
   position: fixed;
+  margin: -10px 0px 0px 480px;
+  top: 10px;
+  height: 60px;
+  padding: 0 0px;
+  width: 70px;
+  border-radius: 8px;
+  border-color: #0088ff;
 }
-.body1 {
-  background-color: #0088ff;
-  font-family: 'Raleway', sans-serif;
+.bg {
+  top: 1px;
   position: fixed;
+  background-color: #71f881;
+  height: 60px;
+  width: 1490px;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+}
+.body {
+  position: fixed;
+  background-color: #ccd3d8;
+  height: 100px;
+  font-family: 'Raleway', sans-serif;
 }
 .ribbon {
-  position: absolute;
-  margin: 0px 0px 0px 17px;
-  background-color: rgb(194, 211, 132);
-  color: rgb(41, 36, 36);
-  top: 65px;
+  position: fixed;
+  margin: 0px 0px 0px 430px;
+  background-color: rgb(83, 143, 27);
+  color: rgb(46, 29, 29);
+  top: 10px;
   width: 160px;
   text-align: center;
   margin-right: 0.5rem;
   border-radius: 8px;
 }
 .ribbon2 {
-  position: absolute;
-  margin: 0px 0px 0px -175px;
-  background-color: rgb(57, 208, 228);
-  color: rgb(8, 4, 4);
-  top: 65px;
+  position: fixed;
+  margin: 0px 0px 0px 700px;
+  background-color: rgb(37, 88, 84);
+  color: rgb(51, 30, 30);
+  top: 10px;
   width: 160px;
   text-align: center;
   margin-right: 0.5rem;
   border-radius: 8px;
 }
 .ribbon:hover {
-  position: absolute;
-  background-color: rgb(93, 156, 180);
-  color: rgb(255, 0, 0);
-  top: 65px;
+  position: fixed;
+  margin: 0px 0px 0px 430px;
+  background-color: rgb(67, 68, 63);
+  color: rgb(150, 144, 144);
+  top: 10px;
   width: 160px;
   text-align: center;
 }
 .ribbon2:hover {
-  position: absolute;
-  margin: 0px 0px 0px -170px;
-  background-color: rgb(195, 255, 0);
-  color: rgb(255, 0, 0);
-  top: 65px;
+  position: fixed;
+  margin: 0px 0px 0px 700px;
+  background-color: rgb(67, 68, 63);
+  color: rgb(150, 144, 144);
+  top: 10px;
   width: 160px;
   text-align: center;
-}
-.user {
-  position: absolute;
-  margin: 0px 0px 0px 950px;
-  background-color: #0088ff;
-  color: white;
-  top: 40px;
-  width: 160px;
-  text-align: center;
-  margin-right: 0.5rem;
-  border-radius: 8px;
 }
 .logout {
-  position: absolute;
-  margin: 0px 0px 0px 250px;
-  background-color: #803333;
-  color: white;
-  top: 40px;
-  width: 95px;
+  position: fixed;
+  margin: 10px 0px 0px 1300px;
+  background-color: #dd2e2e;
+  color: rgb(253, 252, 252);
+  top: 10px;
+  /* height: 35px; */
+  width: 150px;
   text-align: center;
   margin-right: 0.5rem;
   border-radius: 8px;
 }
 .logout:hover {
-  position: absolute;
-  margin: 0px 0px 0px 250px;
-  background-color: rgb(80, 82, 76);
+  position: fixed;
+  margin: 10px 0px 0px 1300px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(2, 0, 0);
+  top: 10px;
+  /* height: 35px; */
+  width: 150px;
+  text-align: center;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+}
+.logout2 {
+  position: fixed;
+  margin: 10px 0px 0px 1300px;
+  background-color: #ff0000;
+  color: white;
+  top: 10px;
+  /* height: 35px; */
+  width: 150px;
+  text-align: center;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+}
+.logout2:hover {
+  position: fixed;
+  margin: 10px 0px 0px 1300px;
+  background-color: rgb(195, 255, 0);
   color: rgb(255, 0, 0);
-  top: 40px;
-  width: 95px;
+  top: 10px;
+  /* height: 35px; */
+  width: 150px;
   text-align: center;
   margin-right: 0.5rem;
   border-radius: 8px;
 }
 .search {
-  position: absolute;
-  margin: 0px 0px 0px -450px;
-  background-color: rgb(161, 219, 221);
-  color: rgb(255, 0, 0);
-  top: 40px;
-  width: 200px;
+  position: fixed;
+  margin: 15px 0px 0px 250px;
+  top: 9px;
+  width: 100px;
   text-align: center;
-  margin-right: 0.5rem;
-  border-radius: 8px;
+}
+.search:hover {
+  position: fixed;
+  background-color: rgb(75, 177, 177);
+  margin: 15px 0px 0px 250px;
+  top: 9px;
+  width: 100px;
+  text-align: center;
+}
+.searchbar {
+  position: fixed;
+  margin: 15px 0px 0px 100px;
+  top: 9px;
+  width: 150px;
+  text-align: center;
 }
 .jj {
-  position: absolute;
+  position: fixed;
   margin: 0px 0px 0px -250px;
   top: 40px;
 }
-
 #container {
   position: relative;
   width: 80%;
   margin: 5% auto;
-  background-color: rgb(212, 188, 188);
+  background-color: black;
   box-shadow: -2px -2px 5px white, 2px -2px 5px white;
 }
 #container > nav {
+  background-color: black;
   width: 100%;
   display: flex;
   max-height: 60px;
 }
-#logo {
-  margin: 0px 1500px 0px 0px;
-  line-height: 20px;
+/* .logo {
+  position: fixed;
+  margin: -10px 0px 0px -730px;
+  top: 10px;
+  height: 60px;
   padding: 0 0px;
   background-color: white;
-  width: 100px;
-}
+  width: 70px;
+} */
 #container > nav > ul {
   margin: 0;
   padding: 0;
@@ -281,6 +271,7 @@ html {
   /*   min-width:60%; */
 }
 #container > nav > ul > li {
+  background-color: black;
   line-height: 60px;
   margin: 0 0px;
   padding: 0;
@@ -292,7 +283,7 @@ html {
 }
 #container > nav > ul > li > a {
   position: relative;
-  /*   background-color:red; */
+  background-color: red;
   margin: 0 20px;
   color: white;
 }
@@ -317,7 +308,7 @@ a {
   position: absolute;
   padding: 0 10px;
 
-  background-color: rgb(216, 172, 172);
+  background-color: black;
   display: none;
   background-color: aliceblue;
   min-width: 100px;
@@ -343,10 +334,10 @@ a {
   transform: rotate(45deg);
 }
 #container > nav > ul > li > div > ul > li:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(243, 182, 182, 0.2);
 }
 #container > nav > ul > li > div > ul > li > a {
   padding: 5px;
-  color: rgb(201, 184, 184);
+  color: black;
 }
 </style>

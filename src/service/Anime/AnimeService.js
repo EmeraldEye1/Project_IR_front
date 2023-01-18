@@ -1,32 +1,37 @@
-import apiClient from '@/service/AxiosClient.js'
-import GStore from '@/store'
+// import { formatApiResponse } from '@/util/format-api-respomse';
+import apiClient from '../AxiosClient';
+import GStore from '@/store';
+
 export default {
-  getAnimeList(input) {
+  // getAnime() {
+  //   return apiClient
+  //     .get('/')
+  //     .then((response) => {
+  //       GStore.anime = response.data;
+  //       console.log(GStore.anime);
+  //     })
+  //     .catch((error) => {
+  //       return console.log(error);
+  //     });
+  // },
+  searchAnime(query) {
     return apiClient
-      .post('/search', input)
+      .post('/search', query)
       .then((response) => {
-        console.log(response.data)
-        var keep = JSON.stringify(response.data)
-        console.log(JSON.parse(keep))
-        var keep2 = JSON.parse(keep)
-        GStore.animeList = keep2
+        GStore.data = response.data;
+        GStore.anime = GStore.data.result;
+        // console.log('format', formatApiResponse(response.data));
+        // return formatApiResponse(response.data);
       })
       .catch((error) => {
-        return console.log(error)
-      })
+        return console.log(error);
+      });
+  },
+  addBookmark(uid, mal_id, score) {
+    return apiClient.post('/addBookmark', {
+      uid: uid,
+      mal_id: mal_id,
+      score: score
+    });
   }
-  //   getAnimeList_description(input) {
-  //     return apiClient
-  //       .post('/search_description', input)
-  //       .then((response) => {
-  //         console.log(response.data)
-  //         var keep = JSON.stringify(response.data)
-  //         console.log(JSON.parse(keep))
-  //         var keep2 = JSON.parse(keep)
-  //         GStore.animeList = keep2
-  //       })
-  //       .catch((error) => {
-  //         return console.log(error)
-  //       })
-  //   }
-}
+};

@@ -1,25 +1,26 @@
-import apiClient from '@/service/AxiosClient.js'
-import GStore from '@/store'
+import apiClient from './AxiosClient.js';
+import GStore from '@/store';
 
 export default {
   login(user) {
-    console.log(user)
     return apiClient
-      .post('/login', user)
+      .post('/login', {
+        username: user.username,
+        password: user.password
+      })
       .then((response) => {
-        console.log(response)
-        localStorage.setItem('token', response.data.token)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-        GStore.currentUser = response.data.user
-        return Promise.resolve(response.data)
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        GStore.currentUser = response.data.user;
+        return Promise.resolve(response.data);
       })
       .catch((error) => {
-        return Promise.reject(error)
-      })
+        return Promise.reject(error);
+      });
   },
   logout() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    GStore.currentUser = null
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    GStore.currentUser = null;
   }
-}
+};

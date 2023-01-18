@@ -1,18 +1,18 @@
 <template>
-  <NavbarCom v-if="GStore.currentUser"></NavbarCom>
+  <Navbarcomp></Navbarcomp>
   <router-view />
 </template>
 <script>
-import NavbarCom from '@/components/NavbarCom.vue'
+import Navbarcomp from './components/NavbarCom.vue';
 export default {
   inject: ['GStore'],
   name: 'HomeView',
   components: {
-    NavbarCom
+    Navbarcomp
   }
-}
+};
 </script>
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -20,15 +20,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-nav {
-  padding: 30px;
-  border: 12px;
-}
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-nav a.router-link-exact-active {
-  color: #42b983;
+body {
+  background-color: #2c3e50;
 }
 </style>

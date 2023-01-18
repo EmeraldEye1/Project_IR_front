@@ -1,23 +1,32 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <AnimeCard
+      v-for="anime in GStore.anime"
+      :key="anime.mal_id"
+      :anime="anime"
+    ></AnimeCard>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import AnimeCard from '@/components/AnimeCard.vue';
+
 export default {
+  inject: ['GStore'],
   name: 'HomeView',
   components: {
-    HelloWorld
-  },
-  mounted() {
-    let user = localStorage.getItem('user')
-    if (!user) {
-      this.$router.push('login')
-    }
+    AnimeCard
   }
-}
+};
 </script>
+
+<style scoped>
+.home {
+  margin: 60px -20px -100px 0;
+  background-color: lightpink;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+</style>

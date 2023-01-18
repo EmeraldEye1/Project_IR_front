@@ -1,7 +1,7 @@
 <template>
   <!-- component -->
   <div class="body1">
-    <h1 class="body1">Anime Star Battle</h1>
+    <h1 class="body1">Login To ANIME-LOL</h1>
     <div class="">
       <div class=""></div>
       <div class="">
@@ -54,9 +54,9 @@
 </template>
 
 <script>
-import { Form, Field, ErrorMessage } from 'vee-validate'
-import * as yup from 'yup'
-import AuthService from '@/service/AuthService.js'
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+import AuthService from '@/service/AuthService.js';
 export default {
   name: 'LoginView',
   components: {
@@ -68,44 +68,42 @@ export default {
     const schema = yup.object().shape({
       username: yup.string().required('User name is required!'),
       password: yup.string().required('Password is required!')
-    })
+    });
     return {
       loading: false,
       message: '',
       schema
-    }
+    };
   },
   methods: {
     handleLogin(user) {
       AuthService.login(user)
         .then(() => {
-          this.$router.push({ path: '/' })
+          this.$router.push({ path: '/' });
         })
         .catch(() => {
-          this.message = 'could not login'
-        })
+          this.message = 'could not login';
+        });
     }
   }
-}
+};
 </script>
 <style scoped>
 @import url('https://rsms.me/inter/inter-ui.css');
 ::selection {
-  background: #2d2f36;
+  background: #ffffff;
 }
 ::-webkit-selection {
-  background: #2d2f36;
+  background: #eaeaea;
 }
 ::-moz-selection {
-  background: #2d2f36;
+  background: #8399eb;
 }
 .body2 {
-  background-image: url('@/assets/my.jpg');
-  margin: 0;
+  background-image: url('@/assets/1.jpg');
+  margin: 0px 0 0 -50px;
   padding: 100%;
   position: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 .body {
   background: rgb(112, 144, 213);
@@ -114,7 +112,7 @@ export default {
   padding: 20px;
 }
 .img {
-  /* margin: 50px 40px 40px 370px; */
+  /* margin: 0px 0px 0px 0px; */
   width: 350px;
   height: 400px;
 }
@@ -130,20 +128,21 @@ export default {
   position: fixed;
 }
 .page {
+  background-image: url('@/assets/tree.jpg');
   /* margin: 50px 40px 40px 370px; */
   width: 500px;
   height: 200px;
   top: 20%;
   left: 40%;
-  margin-left: -250px; /* Negative half of width. */
-  background: #0e85c0;
+  margin-left: -260px; /* Negative half of width. */
+
   /* display: flex; */
   flex-direction: column;
   height: 400px;
   position: fixed;
   /* place-content: center; */
   width: 400px;
-  border: solid 5px green;
+  border: solid 5px rgb(58, 87, 58);
   padding: 5px;
   display: inline-block;
 }
@@ -186,12 +185,17 @@ export default {
   -ms-text-size-adjust: 10px;
 }
 .login {
-  font-size: 25px;
-  font-weight: 750;
-  margin: 70px 40px 40px;
-  background-color: pink;
+  font-size: 50px;
+  font-weight: 250px;
+  margin: 100px 40px 40px;
+  background-color: #890ad2;
 }
-
+.login:hover {
+  font-size: 50px;
+  font-weight: 250px;
+  margin: 100px 40px 40px;
+  background-color: rgb(185, 117, 194);
+}
 .eula {
   color: #999;
   font-size: 14px;
